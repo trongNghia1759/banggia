@@ -1,697 +1,571 @@
-<!DOCTYPE html><html lang="vi"><head>
-  <meta charset="UTF-8">
-  <title>DV MXH</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 13px;
-  background: radial-gradient(circle at top, #1a001f, #0a0010);
-  color: #fff;
-  padding: 30px 15px;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thành nhà Mạc - Di tích Lịch sử</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #e74c3c;
+            --text-color: #ecf0f1;
+            --heading-color: #f1c40f;
+            --bg-color: #1f2a38;
+        }
 
-body.loaded {
-  opacity: 1;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-#preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, #1a001f, #0a0010);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ff4dd2;
-  font-size: 22px;
-  font-weight: bold;
-  font-family: 'Roboto', sans-serif;
-  animation: fadeOut 0.5s ease 1s forwards;
-}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
 
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
 
-.menu-toggle {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 10000;
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  color: #ff4dd2;
-  cursor: pointer;
-}
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
 
-.side-menu {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 260px;
-  height: 100%;
-  background: #2a0033;
-  padding: 60px 20px;
-  transition: left 0.3s ease;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
-  z-index: 9998;
-}
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.side-menu.open {
-  left: 0;
-}
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--heading-color);
+        }
 
-.side-menu h2 {
-  color: #ff99dd;
-  margin-bottom: 20px;
-  font-size: 16px;
-  text-align: center;
-}
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
 
-.side-menu a {
-  display: block;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 0;
-  border-bottom: 1px solid #444;
-  transition: all 0.3s;
-  font-size: 13px;
-}
+        nav ul li {
+            margin-left: 20px;
+        }
 
-.side-menu a:hover {
-  color: #ff4dd2;
-  transform: translateX(4px);
-}
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
 
-h1 {
-  text-align: center;
-  color: #ff4dd2;
-  margin-bottom: 10px;
-  font-size: 16px;
-  text-shadow: 0 0 15px #ff4dd2, 0 0 25px #ff99dd;
-  animation: pulseGlow 2s infinite alternate;
-}
+        nav a:hover {
+            color: var(--heading-color);
+        }
 
-@keyframes pulseGlow {
-  from {
-    text-shadow: 0 0 10px #ff4dd2;
-  }
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/f/ff/Thanh_nha_Mac.jpg') no-repeat center center/cover;
+            color: white;
+            position: relative;
+        }
 
-  to {
-    text-shadow: 0 0 25px #ff4dd2, 0 0 35px #ff99dd;
-  }
-}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
 
-p {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #eee;
-  font-size: 13px;
-}
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
 
-.top-link {
-  text-align: center;
-  margin-bottom: 30px;
-}
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease-in-out;
+        }
 
-.top-link a {
-  display: inline-block;
-  background-color: transparent;
-  border: 2px solid #ff4dd2;
-  padding: 10px 22px;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 8px;
-  color: #ff4dd2;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 12px #ff4dd2;
-}
+        .hero p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease-in-out 0.5s forwards;
+            opacity: 0;
+        }
 
-.top-link a:hover {
-  background-color: #ff4dd2;
-  color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #ff4dd2;
-}
+        section {
+            padding: 80px 0;
+            background-color: var(--secondary-color);
+            min-height: 60vh;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        section.is-visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--heading-color);
+            position: relative;
+        }
 
-.card {
-  background: linear-gradient(145deg, #2c002c, #110011);
-  border: 2px solid transparent;
-  border-radius: 16px;
-  padding: 20px;
-  width: 320px;
-  box-shadow: 0 0 10px #ff4dd255, 0 0 20px #ff4dd222;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s ease forwards;
-}
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 35px #ff4dd2cc;
-  border: 2px solid #ff4dd2;
-}
+        .card {
+            background-color: var(--primary-color);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
 
-.card h3 {
-  color: #ff99dd;
-  margin-bottom: 12px;
-  font-size: 16px;
-  text-shadow: 0 0 5px #ff99dd88;
-}
+        .card h3 {
+            color: var(--heading-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
 
-ul {
-  list-style-type: "🔥 ";
-  padding-left: 20px;
-}
+        .card p {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
 
-li {
-  margin-bottom: 8px;
-  line-height: 1.5;
-  font-size: 13px;
-}
+        .image-container {
+            text-align: center;
+            margin-top: 30px;
+        }
 
-.section-title {
-  color: #ffccff;
-  font-weight: bold;
-  margin: 14px 0 6px;
-  font-size: 16px;
-}
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
 
-  </style>
-</head><body>
-  <!-- Nội dung trang HTML đầy đủ tiếp theo sẽ được chèn ở phần sau -->
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
 
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: var(--primary-color);
+            border: 4px solid var(--accent-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item-content {
+            padding: 20px 30px;
+            background-color: var(--primary-color);
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -16px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            border-top: 3px solid var(--accent-color);
+        }
+        
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        #back-to-top:hover {
+            background-color: #c0392b;
+            transform: translateY(-5px);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px;
+            }
+
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+            }
+
+            .bar {
+                display: block;
+                width: 25px;
+                height: 3px;
+                margin: 5px auto;
+                background-color: white;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border-color: transparent var(--accent-color) transparent transparent;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+            }
+            
+            .left, .right {
+                left: 0;
+            }
+
+        }
+    </style>
+</head>
 <body>
-<style>
-  .flower {
-    position: fixed;
-    top: -50px;
-    font-size: 24px;
-    animation: fall linear infinite;
-    z-index: 9999;
-    pointer-events: none;
-  }
 
-  @keyframes fall {
-    to {
-      transform: translateY(100vh) rotate(360deg);
-      opacity: 0;
-    }
-  }
-</style>
+    <header>
+        <div class="container">
+            <div class="logo">Thành nhà Mạc</div>
+            <nav>
+                <div class="menu-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul>
+                    <li><a href="#gioi-thieu">Giới thiệu</a></li>
+                    <li><a href="#lich-su">Lịch sử</a></li>
+                    <li><a href="#kien-truc">Kiến trúc</a></li>
+                    <li><a href="#gia-tri">Giá trị</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <main>
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Tìm Hiểu Về: Thành nhà Mạc</h1>
+                <h1>THÀNH VIÊN NHÓM</h1>
+                <p>Đoàn Tuyết Như<br>
+                Y Na Hum ÊBan<br>
+                Nguyễn Văn Ngọc<br>
+                Đàm Trọng Nghĩa</p>
+            </div>
+        </div>
 
+        <section id="gioi-thieu">
+            <div class="container">
+                <h2 class="section-title">Giới thiệu chung</h2>
+                <div class="content-grid">
+                    <div class="card">
+                        <h3>Vị trí</h3>
+                        <p>Thành nhà Mạc là một di tích lịch sử nằm ở tỉnh Lạng Sơn, Việt Nam, được xây dựng dưới triều đại nhà Mạc.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Mục đích</h3>
+                        <p>Thành được xây dựng để phòng thủ, kiểm soát con đường giao thương quan trọng và chống lại sự tấn công từ các thế lực thù địch.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Hiện trạng</h3>
+                        <p>Ngày nay, thành chỉ còn lại những tàn tích của các bức tường đá kiên cố, nhưng vẫn mang một giá trị lịch sử và văn hóa lớn.</p>
+                    </div>
+                </div>
+                <div class="image-container">
+                    
+                </div>
+            </div>
+        </section>
 
-  <div id="preloader">👻 Đang tải nội dung... 👻</div>
-  <div id="mainContent">
-   
-    
-    
-    <div style="text-align: center; margin: 20px 0;">
-  <div style="
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    padding: 5px;
-    background: conic-gradient(red, orange, yellow, green, cyan, blue, violet, red);
-    display: inline-block;
-  ">
-    <img src="https://i.postimg.cc/9FN8J4PD/retouch-2025072222563509.jpg" alt="Ảnh avatar" style="
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-    ">
-  </div>
-</div>
+        ---
 
-    <p>Trang Bảng Giá Dịch Vụ</p>
-    <div class="top-link">
-     
-     
-      <a href="https://trongnghia1759.github.io/" target="_blank">👑 Click Liên Hệ 👑</a>
-      
-    </div>
-    <div class="container">
-   <!-- Các card bạn đã có ở đây -->
-<div class="container">
+        <section id="lich-su">
+            <div class="container">
+                <h2 class="section-title">Lịch sử hình thành</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-item-content">
+                            <h3>Thế kỷ 16</h3>
+                            <p>Thành được xây dựng vào thời Mạc Đăng Dung, là một phần của hệ thống phòng thủ vững chắc của triều đại nhà Mạc.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-item-content">
+                            <h3>Thiết kế</h3>
+                            <p>Kiến trúc thành tận dụng địa hình tự nhiên hiểm trở, với các vách đá dựng đứng làm tường thành, chỉ cần xây thêm tường ở những chỗ trống.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-item-content">
+                            <h3>Tàn tích</h3>
+                            <p>Sau khi triều Mạc sụp đổ, thành dần bị tàn phá theo thời gian. Ngày nay, chỉ còn lại những đoạn tường thành sừng sững trên núi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        ---
 
+        <section id="kien-truc">
+            <div class="container">
+                <h2 class="section-title">Kiến trúc đặc trưng</h2>
+                <div class="content-grid">
+                    <div class="card">
+                        <h3>Vật liệu</h3>
+                        <p>Thành được xây dựng chủ yếu bằng đá hộc và gạch, được xếp chồng lên nhau một cách vững chắc, không cần vữa.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Thiết kế</h3>
+                        <p>Tường thành có các lỗ châu mai để tiện quan sát và tấn công. Địa thế hiểm trở giúp tăng cường khả năng phòng thủ.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Kỹ thuật</h3>
+                        <p>Việc xây dựng thành thể hiện trình độ kỹ thuật và quân sự cao của người Việt cổ, với sự kết hợp hài hòa giữa tự nhiên và nhân tạo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        ---
 
-
-
-
-<div class="container">
- <!-- Card 6 -->
-  <div class="card">
-    
-    <h3>🚀 Lưu Ý - Không Tuân Thủ Những Điều Này Sẽ Không Được Hoàn Tiền</h3>
-    <ul>
-      <li>Tài khoản phải để công khai</li>
-      <li>Không đổi thông tin (tên, id,...) khi chạy đơn</li>
-      <li>Không chạy 2 bên cùng lúc</li>
-      <li>Gửi đúng thông tin (Link)</li>
-      
-    </ul>
-  </div>
-  
-  <!-- Card 1 -->
-  <div class="card">
-    <h3>👩‍💻 Bảng Giá Tạo Website</h3>
-    <ul>
-      <li>Web học tập- Tra cứu: 100.000đ-500.000đ</li>
-      <li>Bio Cơ Bản-Nâng Cao: 20.000đ-50.000đ</li>
-      <li>Web kỷ niệm (Tỏ Tình,...): 10.000-50.000đ</li>
-      <li>Web Troll mọi người theo yêu cầu: 40.000đ</li>
-      <li>Các Web Theo Yêu Cầu: Giá Trao Đổi</li>
-    </ul>
-  </div>
-
-
-
-
-
-
-
-
-  <!-- Card 1 -->
-  <div class="card">
-    <h3>⚡ Nạp Free Fire - Liên Quân</h3>
-    <ul>
-      <li>51 KC | 20 QH – 10.000đ</li>
-      <li>113 KC | 40 QH – 20.000đ</li>
-      <li>283 KC | 102 QH – 50.000đ</li>
-      <li>566 KC | 204 QH – 100.000đ</li>
-      <li>1.132 KC | 408 QH – 200.000đ</li>
-      <li>2.830 KC | 1.020 QH – 500.000đ</li>
-      <li>5.750 KC | 2.090 QH – 1.000.000đ</li>
-      <li>11.500 KC | 2.180 QH – 2.000.000đ</li>
-    </ul>
-  </div>
-
-  <!-- Card 2 -->
-  <div class="card">
-    <h3>📱 Dịch Vụ MXH</h3>
-
-    <p class="section-title">💗 Tim, Like, Cảm Xúc 💗</p>
-    <ul>
-      <li>1.5k/50 cảm xúc Facebook</li>
-      <li>1.5k/100 tim TikTok</li>
-      <li>1.5k/150 like Instagram</li>
-    </ul>
-
-    <p class="section-title">👀 View Bài Đăng 👀</p>
-    <ul>
-      <li>2k/1.000 view Facebook</li>
-      <li>1k/1.000 view TikTok</li>
-      <li>2k/1.000 view Instagram</li>
-    </ul>
-
-    <p class="section-title">👤 Theo Dõi 👤</p>
-    <ul>
-      <li>5k/100 FL Facebook</li>
-      <li>15k/100 FL TikTok</li>
-      <li>6k/100 FL Instagram</li>
-    </ul>
-
-    <p class="section-title">🕑 View Story 🕑</p>
-    <ul>
-      <li>2k/100 view Story Facebook</li>
-      <li>2k/500 view Story Instagram</li>
-    </ul>
-  </div>
-
-  <!-- Card 3 -->
-  <div class="card">
-    <h3>📲 Dịch Vụ IOS</h3>
-    <ul>
-      <li>IPA: 10k/Full App IPA</li>
-      <li>Locket Gold IOS 3s: 30k / 1 thiết bị</li>
-      <li>Locket Gold IOS 15s: 45k / 1 thiết bị</li>
-      <li>Picsart Prem: 15k / 1 thiết bị</li>
-      <li>SoundCloud Go+: 15k / 1 thiết bị</li>
-      <li>ID Apple Tải Shadow: 5k/lần thuê</li>
-    </ul>
-  </div>
-
-  <!-- Card 4 -->
-  <div class="card">
-    <h3>🤖 Dịch Vụ Android</h3>
-    <ul>
-      <li>Duolingo Max: 15k / 1 thiết bị</li>
-      <li>Locket Gold 3s: 20k / 1 thiết bị</li>
-      <li>NGL Pro: 10k / 1 thiết bị</li>
-      <li>B612 Prem: 15k / 1 thiết bị</li>
-      <li>Remini Prem: 10k / 1 thiết bị</li>
-    </ul>
-  </div>
-
-  
-
-  
-  
-  
-  
-  <!-- Card mới: Locket V4 -->
-<div class="card">
-  <h3>🔒 Locket V4 (Not gold.MS1)</h3>
-  <ul>
-    <li>Không cần lên Gold</li>
-    <li>Đăng riêng tư</li>
-    <li>Đăng ảnh và video từ album</li>
-    <li>Caption màu</li>
-    <li>Chèn logo hoặc ảnh vào caption (ảnh nào cũng chơi)</li>
-    <li>Đăng meme và gif vào caption</li>
-    <li>Hỗ trợ full thiết bị</li>
-    <li>Mỗi tháng được tạo 5 caption có ảnh đăng trước</li>
-  </ul>
-
-  <p class="section-title">📌 Lưu ý</p>
-  <ul>
-    <li>Không thể đăng trực tiếp, phải gửi thông tin (tài khoản, ảnh, caption, ảnh cạnh caption)</li>
-    <li>Yên tâm vì tài khoản sẽ được bảo mật an toàn</li>
-  </ul>
-
-  <p class="section-title">💰 Giá cả</p>
-  <ul>
-    <li>5k / 1 tháng</li>
-    <li>10k / 5 tháng</li>
-    <li>15k / 12 tháng</li>
-    <li>45k / vĩnh viễn (đến khi Locket fix)</li>
-  </ul>
-
-  <!-- Ảnh minh họa ở cuối card -->
-  
-  <img src="https://i.postimg.cc/jj9rYwjb/IMG-20250831-141318.jpg" 
-       alt="Ảnh minh họa Locket V4" 
-       style="width:100%; max-width:250px; border-radius:12px; object-fit:cover; box-shadow:0 0 10px rgba(255,77,210,0.6);">
-
-  <p style="margin-top:8px; font-size:13px; color:#ff99dd; font-weight:bold;">
-    🌸 Ảnh minh họa cho Locket V4 🌸
-  </p>
+        <section id="gia-tri">
+            <div class="container">
+                <h2 class="section-title">Giá trị lịch sử & văn hóa</h2>
+                <p>Thành nhà Mạc không chỉ là một pháo đài quân sự mà còn là một minh chứng sống động cho một giai đoạn đầy biến động của lịch sử Việt Nam. Nó là biểu tượng của tinh thần quật cường, ý chí tự lực, tự cường của dân tộc Việt Nam. Di tích này có giá trị nghiên cứu lớn về lịch sử, kiến trúc quân sự và văn hóa của triều đại nhà Mạc.</p>
+                <div class="image-container">
+                    
+                </div>
+            </div>
+         <div>
+         <video width="360" height="200" controls>
+    <source src="thanhnhamac.mp4" type="video/mp4">
+</video>
 </div>
 </div>
+        </section>
+    </main>
 
+    <a href="#top" id="back-to-top" title="Lên đầu trang">&#x2191;</a>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Di tích Lịch sử Thành nhà Mạc. Tất cả bản quyền thuộc Nhóm 3-11C8.</p>
+        </div>
+    </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const backToTopBtn = document.getElementById('back-to-top');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navUl = document.querySelector('nav ul');
+            const header = document.querySelector('header');
 
+            const options = {
+                root: null,
+                threshold: 0.2
+            };
 
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
 
-</div>
-      <!-- ... Giữ nguyên phần card và counter ... -->
-      
-      
-<style>
-.tcn-footer-btn {
-  display: inline-block;
-  background: linear-gradient(45deg, #00c6ff, #0072ff);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-.tcn-footer-btn:hover {
-  background: linear-gradient(45deg, #0072ff, #00c6ff);
-  transform: scale(1.05);
-}
-</style>
+            sections.forEach(section => {
+                observer.observe(section);
+            });
 
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 200) {
+                    backToTopBtn.style.display = 'block';
+                    header.style.backgroundColor = 'rgba(44, 62, 80, 0.9)';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                    header.style.backgroundColor = 'var(--primary-color)';
+                }
+            });
 
+            backToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
 
-    </div>
-    <div class="footer">
-      
-      
-
-  
-
- 
-<style>
-  .counter {
-    font-family: 'Segoe UI', sans-serif;
-    padding: 20px;
-    max-width: 360px;
-    margin: 30px auto;
-    border-radius: 16px;
-    position: relative;
-    z-index: 1;
-    background: transparent;
-  }
-
-  .counter::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 3px;
-    border-radius: 16px;
-    background: conic-gradient(
-      from 0deg,
-      #ff0000,
-      #ffa500,
-      #ffff00,
-      #00ff00,
-      #00ffff,
-      #0000ff,
-      #800080,
-      #ff0000
-    );
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    z-index: -1;
-  }
-
-  .counter-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 12px 0;
-  }
-
-  .tick-icon {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #28a745;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .counter-item span {
-    font-size: 18px;
-    color: white;
-  }
-
-  .counter-item span span {
-    color: #2c7be5;
-    font-weight: bold;
-    font-size: 20px;
-  }
-</style>
-
-<script>
-  function animateCount(id, target) {
-    const el = document.getElementById(id);
-    let count = 0;
-    const duration = 1000;
-    const steps = 60;
-    const increment = target / steps;
-    const stepTime = duration / steps;
-
-    const counter = setInterval(() => {
-      count += increment;
-      if (count >= target) {
-        count = target;
-        clearInterval(counter);
-      }
-      el.textContent = Math.floor(count).toLocaleString('vi-VN');
-    }, stepTime);
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    animateCount('visit-count', 1762);
-    animateCount('order-count', 286);
-  });
-</script>
-  <script>
-    window.addEventListener("load", function () {
-      document.body.classList.add("loaded");
-      setTimeout(function () {
-        document.getElementById("preloader").style.display = "none";
-      }, 1500);
-
-      const visitKey = "visit_count";
-      const lastVisitKey = "last_visit_date";
-      const today = new Date().toDateString();
-      let visits = parseInt(localStorage.getItem(visitKey)) || 0;
-      const lastVisit = localStorage.getItem(lastVisitKey);
-
-      if (lastVisit !== today) {
-        visits += 1;
-        localStorage.setItem(visitKey, visits);
-        localStorage.setItem(lastVisitKey, today);
-      }
-
-      document.getElementById("visit-count").textContent = visits.toLocaleString();
-
-      const completedOrders = 1259;
-      document.getElementById("order-count").textContent = completedOrders.toLocaleString();
-    });
-  </script>
-  </div>
-  <audio id="bg-music" loop muted>
-  <source src="https://voca.ro/18TXQE8Sonrg" type="audio/mpeg">
-  Trình duyệt của bạn không hỗ trợ âm thanh.
-</audio>
-
-
-  </script>
- 
-  
-<style>
-  #mascot {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 100px; /* Đã chỉnh nhỏ lại */
-    text-align: center;
-    z-index: 9999;
-  }
-
-  #mascot img {
-    width: 100%;
-    animation: float 2.5s ease-in-out infinite;
-    cursor: pointer; /* Cho người dùng biết có thể click */
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
-  }
-
-  .speech-bubble {
-    background: #fff;
-    color: #333;
-    padding: 6px 8px;
-    border-radius: 10px;
-    margin-top: 4px;
-    font-size: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    position: relative;
-  }
-
-  .speech-bubble::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 12px;
-    border-width: 4px;
-    border-style: solid;
-    border-color: transparent transparent #fff transparent;
-  }
-</style>
-
-<script>
-  const messages = [
-    "Click Lên Đơn",
-    
-  ];
-
-  setInterval(() => {
-    const bubble = document.getElementById('bot-speech');
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    bubble.textContent = randomMessage;
-  }, 10000);
-</script>
-<!-- FontAwesome CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- Footer phong cách với một mục không có link -->
-
-
-   
-
-<!-- Style -->
-<style>
-  .social-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 70px;
-  }
-
-  .social-icon {
-    width: 42px;
-    height: 42px;
-    line-height: 42px;
-    border-radius: 50%;
-    font-size: 18px;
-    color: white;
-    margin-bottom: 6px;
-    text-align: center;
-  }
-
-  .social-icon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255,255,255,0.4);
-    transition: 0.3s;
-  }
-
-  .social-label {
-    font-size: 12px;
-    color: #ccc;
-    text-align: center;
-  }
-
-  .fb { background: #3b5998; }
-  .tiktok { background: #000000; }
-  .instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  }
-  .locket { background: #ffb700; color: #222; }
-  .link { background: #4caf50; }
-</style>
+            menuToggle.addEventListener('click', () => {
+                navUl.style.display = navUl.style.display === 'flex' ? 'none' : 'flex';
+            });
+        });
+    </script>
 </body>
 </html>
